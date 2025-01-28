@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,visualstudio,windows,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,visualstudiocode,visualstudio,windows,macos
 
+test.txt
 ### macOS ###
 # General
 .DS_Store
