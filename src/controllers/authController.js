@@ -1,9 +1,30 @@
 const User = require("../models/User");
+const zd = require("zod");
+
+// creation des variables pour utilisez les verification via ZOD
+
+// register
+const registerSchema = zd.object({
+  email: zd.string().email("Veuillez verifié le format de l'email"),
+  password: zd.string().min(6, "Le mot de passe doit avoir au moins 6 caractères"),
+});
+// login
+const loginSchema = zd.object({
+  email: zd.string().email("Veuillez verifié le format de l'email"),
+  password: zd.string().min(6, "Le mot de passe est trop court"),
+});
+
 
 // Contrôleur pour enregistrer un utilisateur
 const registerUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+     // Validation avec zd
+     const validation = registerSchema.safeParse(req.body);
+     if (!validation.success) {
+       return res.status(400).json({ message: validation.error.errors });
+     }
+ 
+     const { email, password } = validation.data;
 
     // Vérifie si l'utilisateur existe déjà
     const existingUser = await User.findOne({ email });
@@ -24,7 +45,13 @@ const registerUser = async (req, res) => {
 // Contrôleur pour connecter un utilisateur
 const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+        // Validation avec zd
+        const validation = loginSchema.safeParse(req.body);
+        if (!validation.success) {
+          return res.status(400).json({ message: validation.error.errors });
+        }
+    
+    const { email, password } = validation.data;
 
     // Rechercher l'utilisateur par email
     const user = await User.findOne({ email });
@@ -32,7 +59,7 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ message: "Identifiants invalides." });
     }
 
-    // Comparer le mot de passe fourni avec celui dans la base
+    // recup la methode pour verifié le mdp
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Identifiants invalides." });
