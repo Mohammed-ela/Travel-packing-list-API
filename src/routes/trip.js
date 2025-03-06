@@ -1,3 +1,4 @@
+///Users/elamrani/Desktop/Mobile/clement-backend/Travel-packing-list-API/src/routes/trip.js
 const express = require("express");
 const {
   createTrip,

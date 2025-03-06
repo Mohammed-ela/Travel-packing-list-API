@@ -1,3 +1,4 @@
+///Users/elamrani/Desktop/Mobile/clement-backend/Travel-packing-list-API/src/controllers/tripController.js
 const Trip = require("../models/Trip");
 
 // Créer un nouveau voyage
@@ -14,7 +15,7 @@ const createTrip = async (req, res) => {
       destination,
       startDate,
       endDate,
-      user: req.user.userId, // Récupéré via le middleware d'authentification
+      user: req.user.userId, // Récupéré via le middleware
     });
 
     await trip.save();
@@ -67,6 +68,7 @@ const addItemToTrip = async (req, res) => {
 
     // Ajouter l'item au voyage
     trip.items.push({ name, quantity, taken: false });
+    //trip.items.push(...items);
     await trip.save();
 
     res.status(201).json(trip);
@@ -75,7 +77,7 @@ const addItemToTrip = async (req, res) => {
   }
 };
 
-// Marquer un item comme "pris"
+// Marquer un item comme true
 const markItemAsTaken = async (req, res) => {
   try {
     const { tripId, itemId } = req.params;

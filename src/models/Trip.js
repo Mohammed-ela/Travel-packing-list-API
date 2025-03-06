@@ -1,3 +1,4 @@
+///Users/elamrani/Desktop/Mobile/clement-backend/Travel-packing-list-API/src/models/Trip.js
 const mongoose = require("mongoose");
 //voyage schema
 const tripSchema = new mongoose.Schema({

@@ -1,3 +1,4 @@
+// /Users/elamrani/Desktop/Mobile/clement-backend/Travel-packing-list-API/src/middleware/authMiddleware.js
 const jwt = require("jsonwebtoken");
 // check le jeton jwt
 const authMiddleware = (req, res, next) => {
