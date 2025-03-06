@@ -1,13 +1,13 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
-const app = require("../../src/app"); // Importer l’application Express
+const app = require("../../src/app"); // Ne pas utiliser listen()
 const User = require("../../src/models/User");
 
-// URL de base pour les tests
 const API_URL = "/auth";
 
 beforeAll(async () => {
   await mongoose.connect(process.env.MONGO_URI);
+  await User.deleteMany({}); // Nettoyer la collection avant les tests
 });
 
 afterAll(async () => {
