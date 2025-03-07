@@ -15,7 +15,7 @@ const createTrip = async (req, res) => {
       destination,
       startDate,
       endDate,
-      user: req.user.userId, // Récupéré via le middleware
+      user: req.user.userId, 
     });
 
     await trip.save();
